@@ -36,7 +36,7 @@ end
 set :port, server_port
 
 get '/' do
-  send_file './Web/index.html'
+  send_file './Web/app.html'
 end
 
 get '/post' do
@@ -48,7 +48,9 @@ get '/account' do
 end
 
 get '/import-file' do
-  send_file "./Web/#{params[:file]}"
+  file = params[:file]
+  puts file
+  send_file "./Web/#{file}"
 end
 
 get '/import-site' do
@@ -101,4 +103,8 @@ post '/api/account' do
     'False'
   end
   'False'
+end
+
+get '/api/get-images' do
+  "Test"
 end
