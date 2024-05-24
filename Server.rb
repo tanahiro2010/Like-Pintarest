@@ -55,6 +55,10 @@ get '/import-site' do
   Net::HTTP::get_response(params[:url]).content
 end
 
+get '/app' do
+  send_file './Web/app.html'
+end
+
 # API
 post '/api/account' do
   type = params[:type]

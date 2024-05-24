@@ -1961,7 +1961,7 @@ button.addEventListener('click', () => {
     const mail = document.querySelector('#mail');
     const pass = document.querySelector('#pass');
 
-    formData.append('type', 'login')
+    formData.append('type', 'login');
     formData.append('mail', mail);
     formData.append('pass', pass);
 
@@ -1974,8 +1974,8 @@ button.addEventListener('click', () => {
         if (response == 'False') {
             swal.fire('Error', 'そのようなアカウントは登録されていません', 'error');
         } else {
-            document.cookie = response;
-            location.href = '/';
+            document.cookie = JSON.stringify(response);
+            location.href = '/dashboard';
         }
     });
 });
