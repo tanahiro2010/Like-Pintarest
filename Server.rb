@@ -69,8 +69,11 @@ post '/api/account' do
     mail = params[:mail]
     pass = params[:pass]
     user_id = params[:id]
+
+    puts "Try sign in\nname: #{name}\nid: #{user_id}\nmail: #{mail}\npass: #{pass}"
+
     secure_id = SecureRandom.uuid_v4
-    if database['used_mails'].include?(mail)
+    if not database['used_mails'].include?(mail)
       database['users_data'][secure_id] = {
         "mail" => mail,
         "name" => name,
