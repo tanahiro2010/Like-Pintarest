@@ -1962,8 +1962,8 @@ button.addEventListener('click', () => {
     const pass = document.querySelector('#pass');
 
     formData.append('type', 'login');
-    formData.append('mail', mail);
-    formData.append('pass', pass);
+    formData.append('mail', mail.value);
+    formData.append('pass', pass.value);
 
     xhr.open('POST', '/api/account');
     xhr.send(formData);
