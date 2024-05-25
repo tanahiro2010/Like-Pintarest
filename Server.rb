@@ -36,29 +36,31 @@ end
 set :port, server_port
 
 get '/' do
-  send_file './Web/app.html'
+  puts 'Access index'
+  send_file './Web/app.html', :type => 'text/html', :disposition => 'inline', :cache_control => 'no-cache'
 end
 
 get '/post' do
-  send_file './Web/post.html'
+  send_file './Web/post.html', :type => 'text/html', :disposition => 'inline', :cache_control => 'no-cache'
 end
 
 get '/account' do
-  send_file './Web/account.html'
+  send_file './Web/account.html', :type => 'text/html', :disposition => 'inline', :cache_control => 'no-cache'
+end
+
+get '/app' do
+  send_file './Web/app.html', :type => 'text/html', :disposition => 'inline', :cache_control => 'no-cache'
 end
 
 get '/import-file' do
   file = params[:file]
+  type = params[:type]
   puts file
-  send_file "./Web/#{file}"
+  send_file "./Web/#{file}", :type => ( type == "js" ? 'application/javascript' : "text/#{type}"), :disposition => 'inline', :cache_control => 'no-cache'
 end
 
 get '/import-site' do
   Net::HTTP::get_response(params[:url]).content
-end
-
-get '/app' do
-  send_file './Web/app.html'
 end
 
 # API
@@ -69,10 +71,16 @@ post '/api/account' do
     mail = params[:mail]
     pass = params[:pass]
     user_id = params[:id]
+    icon = params[:icon]
 
     puts "Try sign in\nname: #{name}\nid: #{user_id}\nmail: #{mail}\npass: #{pass}"
 
     secure_id = SecureRandom.uuid_v4
+
+    File.open(path="./imgs/icons/#{secure_id}.png", mode="wb") do |file|
+      file.write icon.read
+    end
+
     if not database['used_mails'].include?(mail)
       database['users_data'][secure_id] = {
         "mail" => mail,
@@ -93,12 +101,18 @@ post '/api/account' do
   elsif type == "login"
     mail = params[:mail]
     pass = params[:pass]
+    puts "Try login\nMail: #{mail}\npass: #{pass}"
     if database['used_mails'].include?(mail)
+      puts "Include mail"
       secure_id = database['Secure-mail'][mail]
+      puts "secure_id: #{secure_id}"
       user_data = database['users_data'][secure_id]
-      if Base64.encode64(pass).chomp! == user_data["pass"]
+      password = database['users_data'][secure_id]['pass']
+      puts "password: #{password}"
+      if Base64.encode64(pass).chomp! == password
+        user_data.delete('pass')
         puts user_data
-        return user_data.delete('pass')
+        return JSON.generate(user_data)
       end
     end
     puts "Test"

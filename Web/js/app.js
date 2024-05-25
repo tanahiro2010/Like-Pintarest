@@ -1,10 +1,16 @@
 const content_box = document.querySelector('.grid-container');
+const cookie = decodeURIComponent(document.cookie);
+if (cookie == "") {}
+const user_obj = JSON.parse(cookie.split('=')[1]);
+console.log(user_obj);
+
+if (null);
+
 (() => {
     const xhr = new XMLHttpRequest();
 
     // If this user logined, edit account to user dashboard
-    const cookie = document.cookie;
-    console.log("Cookie: {}".replace('{}', cookie));
+
 
 
     xhr.open('GET', '/api/get-images');

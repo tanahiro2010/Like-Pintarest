@@ -20,9 +20,9 @@ button.addEventListener('click', () => {
             swal.fire('Error', 'そのようなアカウントは登録されていません', 'error');
         } else {
             const cookie_data = `user=${encodeURIComponent(JSON.stringify(response))}`;
-            console.log(cookie_data)
+            console.log(cookie_data);
             document.cookie = cookie_data;
-            // location.href = '/dashboard';
+            location.href = '/app';
         }
     });
 });

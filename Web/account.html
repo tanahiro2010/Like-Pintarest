@@ -7,8 +7,8 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="/import-file?file=css/style.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/import-file?type=css&file=css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <title>PhotoFlick</title>
 </head>
 
@@ -29,6 +29,11 @@
                 <input type="text" placeholder="Id" class="user-id">
                 <input type="email" placeholder="Email" class="user-mail">
                 <input type="password" placeholder="Password" class="user-pass">
+                <div>
+                    <label for="icon">icon</label>
+                    <input type="file" name="icon" id="icon", placeholder="icon">  
+                </div>
+
                 <button class="Sign-up-button">Sign Up</button>
             </div>
         </div>
@@ -64,9 +69,11 @@
         </div>
     </div>
 
-    <script src="/import-file?file=js/script.js"></script>
-    <script src="/import-file?file=js/login.js"></script>
-    <script src="/import-file?file=js/signin.js"></script>
+    <script src="/import-file?type=js&file=js/script.js"></script>
+    <script src="/import-file?type=js&file=js/login.js"></script>
+    <script src="/import-file?type=js&file=js/signin.js"></script>
+
+    <script src="./js/script.js"></script>
 </body>
 
 </html>
