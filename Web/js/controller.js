@@ -16,11 +16,11 @@ send.addEventListener('click', () => {
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
 
-    const title = document.querySelector('.title').value;
+    const title = document.querySelector('#Title').value;
     const text = document.querySelector('.text').value;
     const file = document.querySelector('.file').files[0];
 
-    console.log(`title: ${title}\ntext: ${text}`):
+    console.log(`title: ${title}\ntext: ${text}`);
 
     formData.append('session_id', session_id);
     formData.append('title', title);
@@ -36,6 +36,7 @@ send.addEventListener('click', () => {
 });
 
 delete_mode.addEventListener('click', () =>{
-    controller_box.style = 'display: none;';
-    delete_box.style = 'display: block;';
+    swal.fire("現在作成中です...", "現在作成中です\n少々お待ちください。");
+    // controller_box.style = 'display: none;';
+    // delete_box.style = 'display: block;';
 });

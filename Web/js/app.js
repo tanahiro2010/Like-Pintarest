@@ -38,10 +38,10 @@ if (cookie != "") {
     }
 }
 
-(() => {
+const setup = (() =>{
     const xhr = new XMLHttpRequest();
 
-    xhr.open('GET', '/api/get-images');
+    xhr.open('GET', '/api/get-pictures');
     xhr.send();
 
     xhr.onloadend = (() => {
@@ -51,9 +51,11 @@ if (cookie != "") {
         console.log(keys);
         let html = '';
         for (let obj of keys) {
-            html += `<div class="grid-item" onclick="location.href='/view?id=${obj}'"><img src="/api/get-img?id=${obj}"/><h3>${response[obj].title}</h3></div>`;
+            html += `<div class="grid-item" onclick="location.href='/view?id=${obj}'"><img src="/api/get-img?id=${obj}" width="200" height="300" style="width:200px;object-fit: cover;"/><h3>${response[obj].title}</h3></div>`;
         }
         console.log(html);
         document.querySelector('.grid-container').innerHTML = html;
     });
 });
+
+setup();

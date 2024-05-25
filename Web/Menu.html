@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="pintarest.css">
     <link rel="stylesheet" href="/import-file?type=css&file=css/pintarest.css">
     <link rel="stylesheet" href="./css/pintarest.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
     <header>
@@ -15,7 +17,7 @@
                 
             <div class="account-menu" style="display: none;">
                 <h3 class="user-name"></h2>
-                <img src="" alt="" class="icon" width="48" height="48">
+                <img src="" alt="" class="icon" width="48" height="48" style="object-fit: cover;">
             </div>
         </div>
         <h1 class="title" onclick="location.href='/'">PhotoFlick</h1>
@@ -29,7 +31,7 @@
         <div class="post-box" style="display: none;">
             <label for="file">投稿する画像</label>
             <input type="file" name="img" id="" class="input file" accept="image/*">
-            <input type="text" placeholder="Title" class="input title">
+            <input type="text" placeholder="Title" class="input file-title" id="Title">
             <textarea name="text" id="" class="input text" placeholder="画像の説明"></textarea>
             <h2 class="button-like send">投稿</h2>
         </div>

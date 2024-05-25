@@ -70,6 +70,10 @@ get '/app' do
   send_file './Web/app.html', :type => 'text/html', :disposition => 'inline', :cache_control => 'no-cache'
 end
 
+get '/view' do
+  send_file './Web/view.html', :type => 'text/html', :disposition => 'inline', :cache_control => 'no-cache'
+end
+
 get '/import-file' do
   file = params[:file]
   type = params[:type]
@@ -142,7 +146,8 @@ post '/api/account' do
   'False'
 end
 
-get '/api/get-images' do
+get '/api/get-pictures' do
+  puts post_data
   JSON.generate post_data
 end
 
@@ -202,5 +207,15 @@ post '/api/post-image' do
   else
     "False:Login"
   end
+end
 
+get '/api/get-img-info' do
+  file_id = params[:id]
+  keys = post_data.keys
+  if keys.include?(file_id)
+    res = post_data[file_id]
+    puts res
+    return JSON.generate res
+  end
+  "Falsegt"
 end

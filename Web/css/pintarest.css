@@ -103,3 +103,16 @@ main {
     width: 100%;
     outline: none;
 }
+
+.picture-title {
+    display: inline;
+}
+
+.picture-text {
+    display: inline;
+}
+
+.img {
+    text-align: center;
+    width: 200px;
+}
