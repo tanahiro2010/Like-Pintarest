@@ -19,7 +19,9 @@ button.addEventListener('click', () => {
         if (response == 'False') {
             swal.fire('Error', 'そのようなアカウントは登録されていません', 'error');
         } else {
-            document.cookie = JSON.stringify(response);
+            const cookie_data = `user=${encodeURIComponent(JSON.stringify(response))}`;
+            console.log(cookie_data)
+            document.cookie = cookie_data;
             // location.href = '/dashboard';
         }
     });
