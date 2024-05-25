@@ -19,7 +19,7 @@ button.addEventListener('click', () => {
         if (response == 'False') {
             swal.fire('Error', 'そのようなアカウントは登録されていません', 'error');
         } else {
-            const cookie_data = `user=${encodeURIComponent(JSON.stringify(response))}`;
+            const cookie_data = `session_id=${encodeURIComponent(response)}`;
             console.log(cookie_data);
             document.cookie = cookie_data;
             location.href = '/app';

@@ -43,6 +43,7 @@ main {
 
 .account {
     text-align: right;
+    float: right;
 }
 
 .account-button {
@@ -61,4 +62,8 @@ main {
 
 .account-button :hover {
     transform: translateY(-2px);
+}
+
+.icon {
+    margin-right: 5px;
 }

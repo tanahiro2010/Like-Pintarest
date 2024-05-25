@@ -1,6 +1,6 @@
 require 'json'
 database = {
-  "user_data" => {},
+  "users_data" => {},
   "used_mails" => [],
   "Secure-mail" => {}
 }

@@ -23,6 +23,9 @@ File.open('./database.json', 'r') do |file|
 end
 database = JSON.parse(database_str)
 
+# author
+author_obj = {}
+
 # functions
 def save data
   save_data = JSON.generate data
@@ -40,8 +43,8 @@ get '/' do
   send_file './Web/app.html', :type => 'text/html', :disposition => 'inline', :cache_control => 'no-cache'
 end
 
-get '/post' do
-  send_file './Web/post.html', :type => 'text/html', :disposition => 'inline', :cache_control => 'no-cache'
+get '/Menu' do
+  send_file './Web/Menu.html', :type => 'text/html', :disposition => 'inline', :cache_control => 'no-cache'
 end
 
 get '/account' do
@@ -77,7 +80,7 @@ post '/api/account' do
 
     secure_id = SecureRandom.uuid_v4
 
-    File.open(path="./imgs/icons/#{secure_id}.png", mode="wb") do |file|
+    File.open(path="./imgs/icons/#{mail}.png", mode="wb") do |file|
       file.write icon
     end
 
@@ -110,9 +113,12 @@ post '/api/account' do
       password = database['users_data'][secure_id]['pass']
       puts "password: #{password}"
       if Base64.encode64(pass).chomp! == password
-        user_data.delete('pass')
-        puts user_data
-        return JSON.generate(user_data)
+        Author_id = SecureRandom.uuid_v4
+        author_obj[Author_id] = {
+          "secure_id" => secure_id,
+          "no" => 0
+        }
+        return Author_id
       end
     end
     puts "Test"
@@ -123,4 +129,24 @@ end
 
 get '/api/get-images' do
   "Test"
+end
+
+post '/api/session' do
+  session_id = params[:session_id]
+  puts "Session_id: #{session_id}"
+  session_ids = author_obj.keys
+  if session_ids.include?(session_id)
+    author_id = author_obj[session_id]['secure_id']
+    puts "Author id: #{author_id}"
+    author_obj[session_id]['no'] += 1
+    if author_obj[session_id]['no'] == 5
+      author_obj.delete(session_id)
+    end
+    return JSON.generate(database['users_data'][author_id])
+  end
+  "False"
+end
+
+get '/api/get-icon' do
+  send_file "./imgs/icons/#{params[:id]}.png"
 end
