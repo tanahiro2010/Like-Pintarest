@@ -77,7 +77,7 @@ post '/api/account' do
       database['users_data'][secure_id] = {
         "mail" => mail,
         "name" => name,
-        "pass" => Base64.encode64(pass),
+        "pass" => Base64.encode64(pass).chomp!,
         "id" => user_id,
         "my_post" => []
       }
@@ -96,10 +96,9 @@ post '/api/account' do
     if database['used_mails'].include?(mail)
       secure_id = database['Secure-mail'][mail]
       user_data = database['users_data'][secure_id]
-      if Base64.encode64(pass) == user_data["pass"]
-        delete user_data['pass']
-        puts "Test"
-        return user_data
+      if Base64.encode64(pass).chomp! == user_data["pass"]
+        puts user_data
+        return user_data.delete('pass')
       end
     end
     puts "Test"
