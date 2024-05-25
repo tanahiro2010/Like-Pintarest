@@ -11,6 +11,7 @@ File.open('./config.yml', 'r') do |file|
     config_text += text
   end
 end
+
 config = YAML.load_file('./config.yml')
 server_port = config["Server"]["port"]
 max = config["Account"]["Max"]
@@ -37,9 +38,9 @@ post_data = JSON.parse post_str
 author_obj = {}
 
 # functions
-def save data
+def save path="./database.json", data
   save_data = JSON.generate data
-  File.open(path='./database.json', mode='w') do |file|
+  File.open(path=path, mode='w') do |file|
     file.write save_data
   end
   true
@@ -167,4 +168,39 @@ end
 
 get '/api/get-img' do
   send_file "./imgs/#{params[:id]}.png"
+end
+
+post '/api/post-image' do
+  session_id = params[:session_id]
+  title = params[:title]
+  text = params[:text]
+  file_byte = params[:file][:tempfile].read
+
+  puts "Try post\nSession_id: #{session_id}\ntitle: #{title}\ntext: #{text}"
+
+  file_id = SecureRandom.uuid_v4
+  File.open(path="./imgs/#{file_id}.png", mode="wb") do |file|
+    file.write file_byte
+  end
+
+  author_keys = author_obj.keys
+  puts author_keys
+  if author_keys.include?(session_id)
+    author_id = author_obj[session_id]['secure_id']
+    puts "POST::Author_id: #{author_id}"
+    save_data = {
+      'title' => title,
+      'text' => text,
+      'create_day' => Time.now.strftime("%Y-%m-%d %H:%M:%S")
+    }
+    puts database['users_data']
+    database['users_data'][author_id]['my_post'] << file_id
+    post_data[file_id] = save_data
+    save database
+    save path="./post_data.json", post_data
+    return JSON.generate file_id
+  else
+    "False:Login"
+  end
+
 end
