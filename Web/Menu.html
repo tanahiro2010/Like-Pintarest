@@ -1,11 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Photo</title>
+    <link rel="stylesheet" href="pintarest.css">
+    <link rel="stylesheet" href="/import-file?type=css&file=css/pintarest.css">
+    <link rel="stylesheet" href="./css/pintarest.css">
 </head>
 <body>
-    
+    <header>
+        <div class="account">
+            <h3 class="account-button" onclick="location.href = '/account'">Account</h2>
+                
+            <div class="account-menu" style="display: none;">
+                <h3 class="user-name"></h2>
+                <img src="" alt="" class="icon" width="48" height="48">
+            </div>
+        </div>
+        <h1 class="title" onclick="location.href='/'">PhotoFlick</h1>
+    </header>
+    <main>
+        <div class="grid-container" style="display: none;"></div>
+        <div class="controller" style="display: block;">
+            <h2 class="button-like post-mode">画像を投稿</h2><br>
+            <h2 class="button-like delete-mode">投稿した画像を削除</h2>
+        </div>
+        <div class="post-box" style="display: none;">
+            <label for="file">投稿する画像</label>
+            <input type="file" name="img" id="" class="input file" accept="image/*">
+            <input type="text" placeholder="Title" class="input title">
+            <textarea name="text" id="" class="input text" placeholder="画像の説明"></textarea>
+            <h2 class="button-like send">投稿</h2>
+        </div>
+
+        <div class="delete-box" style="display: none;">
+        </div>
+    </main>
+
+    <script src="/import-file?type=js&file=js/app.js"></script>
+    <script src="./js/app.js"></script>
+    <script src="/import-file?type=js&file=js/controller.js"></script>
+    <script src="./js/controller.js"></script>
 </body>
 </html>

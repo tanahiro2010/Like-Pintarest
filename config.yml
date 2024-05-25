@@ -1,2 +1,4 @@
 Server:
   port: 80
+Account:
+  Max: 10

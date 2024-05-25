@@ -67,3 +67,39 @@ main {
 .icon {
     margin-right: 5px;
 }
+
+.button-like {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1.5em;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.button-like:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.button-like:active {
+    background-color: #004085;
+    transform: translateY(0);
+}
+
+.input {
+    background-color: #eee;
+    border: none;
+    margin: 8px 0;
+    padding: 10px 15px;
+    font-size: 15px;
+    border-radius: 8px;
+    width: 100%;
+    outline: none;
+}

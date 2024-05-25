@@ -11,8 +11,10 @@ File.open('./config.yml', 'r') do |file|
     config_text += text
   end
 end
-config = YAML.load_file('config.yml')
+config = YAML.load_file('./config.yml')
 server_port = config["Server"]["port"]
+max = config["Account"]["Max"]
+puts "Max: #{max}"
 puts "PORT: #{server_port}"
 
 database_str = ''
@@ -22,6 +24,14 @@ File.open('./database.json', 'r') do |file|
   end
 end
 database = JSON.parse(database_str)
+
+post_str = ""
+File.open(path='./post_data.json', mode="r") do |file|
+  file.each do |text|
+    post_str += text
+  end
+end
+post_data = JSON.parse post_str
 
 # author
 author_obj = {}
@@ -41,6 +51,10 @@ set :port, server_port
 get '/' do
   puts 'Access index'
   send_file './Web/app.html', :type => 'text/html', :disposition => 'inline', :cache_control => 'no-cache'
+end
+
+get '/favicon.ico' do
+  send_file './imgs/PhotFlick.png'
 end
 
 get '/Menu' do
@@ -128,7 +142,7 @@ post '/api/account' do
 end
 
 get '/api/get-images' do
-  "Test"
+  JSON.generate post_data
 end
 
 post '/api/session' do
@@ -139,7 +153,7 @@ post '/api/session' do
     author_id = author_obj[session_id]['secure_id']
     puts "Author id: #{author_id}"
     author_obj[session_id]['no'] += 1
-    if author_obj[session_id]['no'] == 5
+    if author_obj[session_id]['no'] == max
       author_obj.delete(session_id)
     end
     return JSON.generate(database['users_data'][author_id])
@@ -149,4 +163,8 @@ end
 
 get '/api/get-icon' do
   send_file "./imgs/icons/#{params[:id]}.png"
+end
+
+get '/api/get-img' do
+  send_file "./imgs/#{params[:id]}.png"
 end
