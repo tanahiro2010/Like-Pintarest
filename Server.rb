@@ -71,14 +71,14 @@ post '/api/account' do
     mail = params[:mail]
     pass = params[:pass]
     user_id = params[:id]
-    icon = params[:icon]
+    icon = params[:icon][:tempfile].read
 
     puts "Try sign in\nname: #{name}\nid: #{user_id}\nmail: #{mail}\npass: #{pass}"
 
     secure_id = SecureRandom.uuid_v4
 
     File.open(path="./imgs/icons/#{secure_id}.png", mode="wb") do |file|
-      file.write icon.read
+      file.write icon
     end
 
     if not database['used_mails'].include?(mail)

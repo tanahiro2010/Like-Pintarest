@@ -6,7 +6,8 @@ action.addEventListener('click', () =>{
     const pass = document.querySelector('.user-pass');
     const id = document.querySelector('.user-id');
     const icon = document.querySelector('#icon').files[0];
-    
+
+    console.log(icon);
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
     xhr.open('POST', '/api/account');
